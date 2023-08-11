@@ -167,7 +167,7 @@ class BaseMeta(BaseAttack):
 
     def __init__(self, model, with_relu, nnodes=None, feature_shape=None, lambda_=0.5, attack_structure=True, attack_features=False, undirected=True, device='cpu'):
 
-        super(BaseMeta, self).__init__(None, nnodes, attack_structure, attack_features, device)
+        super(BaseMeta, self).__init__(model, nnodes, attack_structure, attack_features, device)
         self.lambda_ = lambda_
 
         assert attack_features or attack_structure, 'attack_features or attack_structure cannot be both False'
