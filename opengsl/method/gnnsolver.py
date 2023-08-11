@@ -6,7 +6,7 @@ from .solver import Solver
 import torch
 from copy import deepcopy
 from opengsl.data.preprocess.normalize import normalize
-
+from opengsl.data.preprocess.attack import metattack, nettack
 
 class SGCSolver(Solver):
     '''
@@ -122,6 +122,12 @@ class GCNSolver(Solver):
         Function to set the model and necessary variables for each run, automatically called in function `set`.
 
         '''
+        pre = self.adj
+        self.adj, self.feats = metattack(self.adj.to_dense(), self.feats, self.labels, self.num_targets, self.train_mask, self.val_mask, self.test_mask, self.conf, self.device)
+        # self.adj, self.feats = nettack(self.adj.to_dense(), self.feats, self.labels, self.num_targets, 1, self.train_mask, self.conf, self.device)
+        
+        self.adj = self.adj.to_sparse()
+        print(self.adj - pre)
         self.model = GCN(self.dim_feats, self.conf.model['n_hidden'], self.num_targets, self.conf.model['n_layers'],
                     self.conf.model['dropout'], self.conf.model['input_dropout'], self.conf.model['norm'],
                     self.conf.model['n_linear'], self.conf.model['spmm_type'], self.conf.model['act'],

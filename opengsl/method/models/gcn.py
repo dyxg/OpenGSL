@@ -50,6 +50,7 @@ class GCN(nn.Module):
         super(GCN, self).__init__()
 
         self.nfeat = nfeat
+        self.nhid = nhid
         self.nclass = nclass
         self.n_layers = n_layers
         self.input_layer = input_layer
