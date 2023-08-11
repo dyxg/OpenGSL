@@ -515,7 +515,7 @@ def likelihood_ratio_filter(node_pairs, modified_adjacency, original_adjacency, 
     # current_degree_sequence = get_degree_squence(modified_adjacency)
     original_degree_sequence = original_adjacency.sum(0)
     current_degree_sequence = modified_adjacency.sum(0)
-    concat_degree_sequence = torch.stack((current_degree_sequence, original_degree_sequence))
+    concat_degree_sequence = torch.cat((current_degree_sequence, original_degree_sequence))
 
     # Compute the log likelihood values of the original, modified, and combined degree sequences.
     ll_orig, alpha_orig, n_orig, sum_log_degrees_original = degree_sequence_log_likelihood(original_degree_sequence, d_min)
